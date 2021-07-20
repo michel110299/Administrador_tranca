@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% block conteudo %}
+
+<div class="row container ">
+    {%for partidas in ListPartidas%}
+    <div class="col s12 m4">
+        <div class="card blue-grey darken-1 ">
+            <div class="card-content white-text min-height">
+            <span class="card-title center ">{{ forloop.counter }}º Partida</span>
+            {%if partidas.Fim%}
+                <h6 class="center">Equipe Vencedora: {{partidas.Vencedora}}</h6>
+            {%else%}
+                <h6 class="center">Aguardando fim da partida</h6>
+            {%endif%}
+            </div>
+            <div class="card-action">
+            <a href="{% url 'Info_rodada' partidas.id %}">Informações</a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+
+
+
+
+<script>
+</script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+{% block conteudo %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <h6 class="center">Time 1</h6>
+        <hr>
+        <div class="input-field col s12 m6 l6">
+            <i class="material-icons prefix">person</i>
+            <input id="Jogador1" maxlength="255" name="Jogador[]" type="text" required/>
+            <label>Jogador 1:</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <i class="material-icons prefix">person</i>
+            <input id="Jogador2" maxlength="255" name="Jogador[]" type="text" required />
+            <label>Jogador 2:</label>
+        </div>
+        <h6 class="center">Time 2</h6>
+        <hr>
+        <div class="input-field col s12 m6 l6">
+            <i class="material-icons prefix">person</i>
+            <input id="Jogador3" maxlength="255" name="Jogador[]" type="text" required/>
+            <label>Jogador 1:</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <i class="material-icons prefix">person</i>
+            <input id="Jogador4" maxlength="255" name="Jogador[]" type="text" required/>
+            <label>Jogador 2:</label>
+        </div>
+    </div>
+    <button>enviar</button>
+</form>
+
+<script>
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% block conteudo %}
+
+<div class="row container">
+    {%for jogo in listJogos%}
+    <div class="col s12 m4">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+            <span class="card-title center">{{jogo.Nome}}</span>
+                {%if jogo.Vencedora%}
+                <p>Atual Vencedor: {{jogo.Vencedora}}</p>
+                <p>Atual Perdedor: {{jogo.Perdedora}}</p>
+                {%else%}
+                <p>Atual Vencedor: Empate </p>
+                <p>Atual Perdedor: Empate</p>
+                {%endif%}
+                <p>Data de inicio: {{jogo.DataCadastro}}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'InicioJogo' jogo.id %}">Continuar</a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+
+<script>
+
+</script>
+
+{% endblock %}

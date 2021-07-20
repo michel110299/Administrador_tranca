@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css"/>
+        <!-- importando CSS e JV  -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/select2-materialize.css' %}">
+        <link href="{% static 'css/HoldOn.min.css'%}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/HoldOn.min.js'%}"></script>
+        <!-- Importando icones -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+        <title>Tranca</title>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <div class="nav-wrapper blue-grey darken-1">
+                    <a href="#" class="brand-logo">Tranca</a>
+                    <ul id="nav-mobile" class=" right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+        <main>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <script type="text/javascript">
+                        var toastHTML = '{{ message }}';
+                        M.toast({html: toastHTML, displayLength:1000,classes:'rounded green lighten-2 black-text text-black'});
+                    </script>   
+                    {%elif message.tags == 'error'%}
+                    <script type="text/javascript">
+                        var toastHTML = '{{ message }}';
+                        M.toast({html: toastHTML, displayLength:1000,classes:'rounded red black-text text-black'});
+                    </script>
+                    {%elif message.tags == 'warning'%}
+                    <script type="text/javascript">
+                        var toastHTML = '{{ message }}';
+                        M.toast({html: toastHTML, displayLength:1000,classes:'rounded  red darken-4 white-text text-white'});
+                    </script>
+                    {%elif message.tags == 'info'%}
+                    <script type="text/javascript">
+                        var toastHTML = '{{ message }}';
+                        M.toast({html: toastHTML, displayLength:1000,classes:'rounded  teal lighten-4 black-text text-black'});
+                    </script> 
+                    {% else %}
+                    <script type="text/javascript">
+                        var toastHTML = '{{ message }}';
+                        M.toast({html: toastHTML, displayLength:1000,classes:'rounded yellow black-text text-black'});
+                    </script> 
+                    {%endif%}             
+                {% endfor %}
+            {% endif %}
+                {% block conteudo %}
+                {% endblock conteudo %}                
+        </main>
+
+        <footer class="page-footer cyan darken-4">
+            <div class="footer-copyright">
+                <div class="container center">
+                    Copyright © Tranca - Michel Fernandes Lemes
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            $(document).ready(function() {
+                $(".dropdown-trigger").dropdown();
+                $('.tabs').tabs();
+                $('.tooltipped').tooltip();
+                $('.scrollspy').scrollSpy();
+                $('.collapsible').collapsible();
+                $('.sidenav').sidenav();
+                $('select').formSelect();
+            });
+
+            $(window).bind('beforeunload', function(){
+                    var options = {
+                        theme:"sk-rect",
+                        message:'Por favor, aguarde...',
+                        backgroundColor:"#000",
+                        textColor:"white"
+                    };
+
+                    HoldOn.open(options);
+                });        
+                
+                $(window).load(function() {
+                    HoldOn.close();
+            });
+            
+        </script>
+        {% block scripts %} 
+        {% endblock %}
+
+
+    </body>
+</html>
