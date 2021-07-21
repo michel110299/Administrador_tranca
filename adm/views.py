@@ -67,6 +67,7 @@ def ViewInicioJogo(request,idJogo):
             listRodada.append(obj)
 
         EquipeSelecionada=0
+        MaiorPontuacao = 0
         for rodada in listRodada:
             ObjRodada = Rodada()
             ObjRodada.Partida = ObjPartida
@@ -75,26 +76,34 @@ def ViewInicioJogo(request,idJogo):
             ObjRodada.QtdCartas = rodada["QtdCartas"]
             ObjRodada.QtdRed = rodada["QtdRed"]
             ObjRodada.QtdBlack = rodada["QtdBlack"]
-            ObjRodada.Morto = False
+            ObjRodada.Morto = True
             ObjRodada.TotalPontos = 0
-
+            
             if int(ObjRodada.PontosCanastra) < 100:
                 ObjRodada.TotalPontos = (((int(ObjRodada.PontosCanastra) + (int(ObjRodada.QtdCartas)*10)) - (100*int(ObjRodada.QtdRed))) - (int(ObjRodada.QtdBlack)*100))
             else:
                 ObjRodada.TotalPontos = (((int(ObjRodada.PontosCanastra) + (int(ObjRodada.QtdCartas)*10)) + (100*int(ObjRodada.QtdRed))) - (int(ObjRodada.QtdBlack)*100))
+            
+            if ObjRodada.Morto == False:
+                ObjRodada.TotalPontos -= 100
+            
             ObjRodada.save()
-
+            
             try:
                 listRodadas = Rodada.objects.filter(Partida=ObjPartida,Equipe=listEquipes[EquipeSelecionada])
                 totalpontos = 0
+                
                 for rodada in listRodadas:
                     totalpontos += rodada.TotalPontos
                     if totalpontos >= 3000:
-                        ObjPartida.Vencedora = listEquipes[EquipeSelecionada]
-                        ObjPartida.Fim = True
-                        for eq in listEquipes:
-                            if eq != listEquipes[EquipeSelecionada]:
-                                ObjPartida.Perdedora = eq
+                        if MaiorPontuacao == 0:
+                            MaiorPontuacao = totalpontos
+                        if MaiorPontuacao <= totalpontos:
+                            ObjPartida.Vencedora = listEquipes[EquipeSelecionada]
+                            ObjPartida.Fim = True
+                            for eq in listEquipes:
+                                if eq != listEquipes[EquipeSelecionada]:
+                                    ObjPartida.Perdedora = eq
                     ObjPartida.save()
 
             except:
@@ -105,7 +114,6 @@ def ViewInicioJogo(request,idJogo):
         ListPartida = Partida.objects.filter(Jogo=objJogo)
         listEquipe1 = []
         listEquipe2 = []
-        
 
         print("estou aqui")
         for partida in ListPartida:
@@ -121,7 +129,7 @@ def ViewInicioJogo(request,idJogo):
             objJogo.Perdedora = listEquipes[1]
 
         elif len(listEquipe2)>len(listEquipe1):
-            print(f'{listEquipes[2]} vencedora')
+            print(f'{listEquipes[1]} vencedora')
             objJogo.Vencedora = listEquipes[1]
             objJogo.Perdedora = listEquipes[0]
 
@@ -155,7 +163,8 @@ def ViewResultado(request,idJogo):
     return render(request,"resultados.html",context)
 
 
-def ViewInfo(request,idPartida):
+def ViewInfo(request,idPartida,idJogo):
+    objJogo = Jogo.objects.get(pk=idJogo)
     ObjPartida = Partida.objects.get(pk=idPartida)
     try:
         ListRodada = Rodada.objects.filter(Partida=ObjPartida)
@@ -164,6 +173,7 @@ def ViewInfo(request,idPartida):
     context = {
         "ObjPartida":ObjPartida,
         "ListRodada":ListRodada,
+        "objJogo":objJogo,
     }
 
     return render(request,"mais_informacoes.html",context)

@@ -8,42 +8,42 @@
             <h5 class="center">{{equipe.Nome}}</h5>
             <hr>
             <div class="input-field col s12 m4 l4">
-                <i class="material-icons prefix">add_shopping_cart</i>
+                <i class="material-icons prefix">style</i>
                 <input id="id_ptsCanastra" maxlength="255" name="PtsCanastra[]" type="number" required/>
                 <label>Total de pontos de canastra:</label>
             </div>
             <div class="input-field col s12 m4 l4">
-                <i class="material-icons prefix">add_shopping_cart</i>
+                <i class="material-icons prefix">style</i>
                 <input id="id_QtdCartas" maxlength="255" name="QtdCartas[]" type="number" required/>
                 <label>Quantidade de cartas na mesa:</label>
             </div>
             <div class="input-field col s12 m4 l4">
-                <i class="material-icons prefix">add_shopping_cart</i>
+                <i class="material-icons prefix">style</i>
                 <input id="id_QtdRed" maxlength="255" name="QtdRed[]" type="number" required/>
                 <label>Quantidade de 3 vermelhos:</label>
             </div>
             <div class="input-field col s12 m4 l4">
-                <i class="material-icons prefix">add_shopping_cart</i>
+                <i class="material-icons prefix">style</i>
                 <input id="id_QtdBlack" maxlength="255" name="QtdBlack[]" type="number" required/>
                 <label>Quantidade de 3 Pretos:</label>
             </div>
             <div class="input-field col s12 m4 l4">
                 <label>
-                    <input id="id_morto" type="checkbox" name="Morto[]" value="false" />
+                    <input id="id_morto" type="checkbox" name="Morto[]"  />
                     <span>Teve Morto</span>
                 </label>
             </div>
         </div>
     {%endfor%}
-<button>enviar</button>
+    <div class="center">
+        <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action">Enviar
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+    
 </form>
-<a class="waves-effect waves-light btn" href="{% url 'Resultado' objJogo.id %}"><i class="material-icons left">cloud</i>Ver Estatisticas</a>
+
 <script>
-
-    $("#id_morto").is(':checked', function(){
-        $("#id_morto").attr('value', 'true');
-    });
-
 </script>
 
 {% endblock %}

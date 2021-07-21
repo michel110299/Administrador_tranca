@@ -8,5 +8,5 @@ urlpatterns = [
     path('cadastro-jogo',ViewCadastro,name="cadastro"),
     path('inicio-jogo/<int:idJogo>/',ViewInicioJogo,name="InicioJogo"),
     path('resultado-jogo/<int:idJogo>/',ViewResultado,name="Resultado"),
-    path('info-rodada/<int:idPartida>/',ViewInfo,name="Info_rodada"),
+    path('info-rodada/<int:idPartida>/<int:idJogo>/',ViewInfo,name="Info_rodada"),
 ]
