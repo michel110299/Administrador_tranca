@@ -88,7 +88,7 @@ def ViewInicioJogo(request,idJogo):
             if ObjRodada.Morto == 'False':
                 print(f" A equipe {ObjRodada.Equipe} não pegou o morto")
                 ObjRodada.TotalPontos -= 100
-                
+
             ObjRodada.save()
             
             try:
@@ -121,10 +121,11 @@ def ViewInicioJogo(request,idJogo):
 
         print("estou aqui")
         for partida in ListPartida:
-            if partida.Vencedora == listEquipes[0]:
-                listEquipe1.append(partida)
-            else:
-                listEquipe2.append(partida)
+            if partida.Vencedora:
+                if partida.Vencedora == listEquipes[0]:
+                    listEquipe1.append(partida)
+                else:
+                    listEquipe2.append(partida)
 
         if len(listEquipe1)>len(listEquipe2):
             print(f'{listEquipes[0]} vencedora')
