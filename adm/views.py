@@ -83,10 +83,12 @@ def ViewInicioJogo(request,idJogo):
                 ObjRodada.TotalPontos = (((int(ObjRodada.PontosCanastra) + (int(ObjRodada.QtdCartas)*10)) - (100*int(ObjRodada.QtdRed))) - (int(ObjRodada.QtdBlack)*100))
             else:
                 ObjRodada.TotalPontos = (((int(ObjRodada.PontosCanastra) + (int(ObjRodada.QtdCartas)*10)) + (100*int(ObjRodada.QtdRed))) - (int(ObjRodada.QtdBlack)*100))
-            
-            if ObjRodada.Morto == False:
+            print("confere morto")
+            print(ObjRodada.Morto)
+            if ObjRodada.Morto == 'False':
+                print(f" A equipe {ObjRodada.Equipe} não pegou o morto")
                 ObjRodada.TotalPontos -= 100
-            
+                
             ObjRodada.save()
             
             try:
@@ -141,6 +143,8 @@ def ViewInicioJogo(request,idJogo):
         
         objJogo.save()
         
+        return redirect("Resultado" , objJogo.id)
+
     context = {
         "objJogo":objJogo,
         "listEquipes":listEquipes,
