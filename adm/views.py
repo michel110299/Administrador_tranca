@@ -45,7 +45,6 @@ def ViewInicioJogo(request,idJogo):
     listEquipes = objJogo.Equipes.all()
 
     if request.method == "POST":
-
         try:
             ObjPartida = Partida.objects.get(Jogo=objJogo,Fim=False)
         except:
@@ -54,16 +53,17 @@ def ViewInicioJogo(request,idJogo):
             ObjPartida.save()
 
         listRodada=[]
-
+        
         for index, PtsCanastra in enumerate(request.POST.getlist('PtsCanastra[]')):      
-
+            
             obj = {
                 "PtsCanastra": PtsCanastra,
                 "QtdCartas" :request.POST.getlist("QtdCartas[]", None)[index],
                 "QtdRed" : request.POST.getlist("QtdRed[]", None)[index],
                 "QtdBlack" : request.POST.getlist("QtdBlack[]", None)[index],
-                # "Morto" : request.POST.getlist("Morto[]", None)[index],
+                "Morto" : request.POST.getlist("Morto[]", None)[index],
             }
+
             listRodada.append(obj)
 
         EquipeSelecionada=0
@@ -76,7 +76,7 @@ def ViewInicioJogo(request,idJogo):
             ObjRodada.QtdCartas = rodada["QtdCartas"]
             ObjRodada.QtdRed = rodada["QtdRed"]
             ObjRodada.QtdBlack = rodada["QtdBlack"]
-            ObjRodada.Morto = True
+            ObjRodada.Morto = rodada["Morto"]
             ObjRodada.TotalPontos = 0
             
             if int(ObjRodada.PontosCanastra) < 100:
@@ -111,6 +111,8 @@ def ViewInicioJogo(request,idJogo):
 
             EquipeSelecionada+=1
 
+        
+        #contabilizar quem ganhou mais partidas.
         ListPartida = Partida.objects.filter(Jogo=objJogo)
         listEquipe1 = []
         listEquipe2 = []
@@ -121,7 +123,6 @@ def ViewInicioJogo(request,idJogo):
                 listEquipe1.append(partida)
             else:
                 listEquipe2.append(partida)
-        
 
         if len(listEquipe1)>len(listEquipe2):
             print(f'{listEquipes[0]} vencedora')

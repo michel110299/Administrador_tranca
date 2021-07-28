@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block conteudo %}
 
-<form method="POST">
+<form method="POST" id="form">
     {% csrf_token %}
     {%for equipe in listEquipes%}
         <div class="row">
@@ -28,11 +28,13 @@
                 <label>Quantidade de 3 Pretos:</label>
             </div>
             <div class="input-field col s12 m4 l4">
-                <label>
-                    <input id="id_morto" type="checkbox" name="Morto[]"  />
-                    <span>Teve Morto</span>
-                </label>
-            </div>
+                <select name="Morto[]" required>
+                  <option value="" disabled selected>Teve morto?</option>
+                  <option value="True">sim</option>
+                  <option value="False">não</option>
+                </select>
+              </div>
+            
         </div>
     {%endfor%}
     <div class="center">
@@ -42,8 +44,5 @@
     </div>
     
 </form>
-
-<script>
-</script>
 
 {% endblock %}
