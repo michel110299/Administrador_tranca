@@ -1,45 +1,55 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %} 
 {% block nav %}
-{% endblock nav %} 
+{% endblock nav %}
+{% block nave %}
+{% endblock nave %}  
 {% block conteudo %}
 
-<form method="POST">
-    {% csrf_token %}
+
+<div class="altura container">
     <div class="row">
-        <h6 class="center">Time 1</h6>
-        <hr>
-        <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">person</i>
-            <input id="Jogador1" maxlength="255" name="Jogador[]" type="text" required/>
-            <label>Jogador 1:</label>
-        </div>
-        <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">person</i>
-            <input id="Jogador2" maxlength="255" name="Jogador[]" type="text" required />
-            <label>Jogador 2:</label>
-        </div>
-        <h6 class="center">Time 2</h6>
-        <hr>
-        <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">person</i>
-            <input id="Jogador3" maxlength="255" name="Jogador[]" type="text" required/>
-            <label>Jogador 1:</label>
-        </div>
-        <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">person</i>
-            <input id="Jogador4" maxlength="255" name="Jogador[]" type="text" required/>
-            <label>Jogador 2:</label>
+        <div class="col s12 m10 offset-m1 center">
+            <div class="card white z-depth-2">
+                <div class="card-content white-text">
+                    <h2 class="black-text center">TRANCA</h2>
+                    <p class="center black-text">Informe os nomes dos jogadores de cada time!</p><br>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <form method="POST">
+                        {% csrf_token %}
+                            <h6 class="center titulo">Time 1</h6>
+                            <div class="input-field col s12 m12 l10 offset-l1">
+                                <i class="material-icons prefix">person</i>
+                                <input id="Jogador1" maxlength="255" name="Jogador[]" type="text" required/>
+                                <label>Jogador 1:</label>
+                            </div>
+                            <div class="input-field col s12 m12 l10 offset-l1">
+                                <i class="material-icons prefix">person</i>
+                                <input id="Jogador2" maxlength="255" name="Jogador[]" type="text" required />
+                                <label>Jogador 2:</label>
+                            </div>                
+                            <h6 class="center titulo cardInterno">Time 2</h6>
+                            <div class="input-field col s12 m12 l10 offset-l1">
+                                <i class="material-icons prefix">person</i>
+                                <input id="Jogador3" maxlength="255" name="Jogador[]" type="text" required/>
+                                <label>Jogador 1:</label>
+                            </div>
+                            <div class="input-field col s12 m12 l10 offset-l1">
+                                <i class="material-icons prefix">person</i>
+                                <input id="Jogador4" maxlength="255" name="Jogador[]" type="text" required/>
+                                <label>Jogador 2:</label>
+                            </div>
+                        </form>
+                    </div>                    
+                </div>                
+                <button class="btn waves-effect green darken-3 margin-top" type="submit" name="action">JOGAR
+                    <i class="material-icons right">gamepad</i>
+                </button><br><br><br><br>                
+            </div>
         </div>
     </div>
-    <div class="center">
-        <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action">Enviar
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
-</form>
-
-<script>
-
-</script>
+</div>
 
 {% endblock %}

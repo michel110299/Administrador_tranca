@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from adm.models import *
 
 def ViewInicio(request):
-    listJogos = Jogo.objects.all()
+    listJogos = Jogo.objects.select_related('Vencedora','Perdedora').all()
 
     context = {
         "listJogos":listJogos,
@@ -28,7 +28,7 @@ def ViewCadastro(request):
                 objEquipe.save()
                 objEquipe.Pessoas.add(objPessoa)
             else:
-                objEquipe.Nome = "(" + str(objPessoa) + '/' + str(objPessoaAux) + ")"
+                objEquipe.Nome = str(objPessoa) + ' e ' + str(objPessoaAux) 
                 objEquipe.save()
                 objEquipe.Pessoas.add(objPessoa)
 
@@ -38,15 +38,19 @@ def ViewCadastro(request):
             x+=1
         return redirect("InicioJogo", objJogo.id)
 
-    return render(request,"cadastro.html")
+    context = {
+        "Nome_pagina": "Cadastrar Jogo"
+    }
+
+    return render(request,"cadastro.html", context )
 
 def ViewInicioJogo(request,idJogo):
-    objJogo = Jogo.objects.get(pk=idJogo)
+    objJogo = Jogo.objects.select_related('Vencedora','Perdedora').get(pk=idJogo)
     listEquipes = objJogo.Equipes.all()
 
     if request.method == "POST":
         try:
-            ObjPartida = Partida.objects.get(Jogo=objJogo,Fim=False)
+            ObjPartida = Partida.objects.select_related('Vencedora','Perdedora','Jogo').get(Jogo=objJogo,Fim=False)
         except:
             ObjPartida = Partida()
             ObjPartida.Jogo = objJogo
@@ -92,7 +96,7 @@ def ViewInicioJogo(request,idJogo):
             ObjRodada.save()
             
             try:
-                listRodadas = Rodada.objects.filter(Partida=ObjPartida,Equipe=listEquipes[EquipeSelecionada])
+                listRodadas = Rodada.objects.select_related('Equipe','Partida').filter(Partida=ObjPartida,Equipe=listEquipes[EquipeSelecionada])
                 totalpontos = 0
                 
                 for rodada in listRodadas:
@@ -115,7 +119,7 @@ def ViewInicioJogo(request,idJogo):
 
         
         #contabilizar quem ganhou mais partidas.
-        ListPartida = Partida.objects.filter(Jogo=objJogo)
+        ListPartida = Partida.objects.select_related('Vencedora','Perdedora','Jogo').filter(Jogo=objJogo)
         listEquipe1 = []
         listEquipe2 = []
 
@@ -153,27 +157,39 @@ def ViewInicioJogo(request,idJogo):
 
     return render(request,"inicio_jogo.html",context)
 
-
 def ViewResultado(request,idJogo):
-    objJogo = Jogo.objects.get(pk=idJogo)
+    objJogo = Jogo.objects.select_related('Vencedora','Perdedora').get(pk=idJogo)
+    
     try:
-        ListPartidas = Partida.objects.filter(Jogo=objJogo)
-    except:
-        ListPartidas = []
+        ListPartidas = Partida.objects.select_related('Vencedora','Perdedora','Jogo').filter(Jogo=objJogo)
+        ListPartidasRodadas = []
 
+        for Objpartida in ListPartidas:
+            listRodadas = Rodada.objects.select_related('Equipe','Partida').filter(Partida=Objpartida)
+            
+            obj = {
+                "ObjPartida" : Objpartida,
+                "QtdRodadas" : len(listRodadas)
+            }
+            ListPartidasRodadas.append(obj)    
+            
+    except Partida.DoesNotExist:
+        ListPartidasRodadas = []
+
+    
+    
     context = {
         "objJogo":objJogo,
-        "ListPartidas":ListPartidas,
+        'ListPartidasRodadas': ListPartidasRodadas
     }
 
     return render(request,"resultados.html",context)
 
-
 def ViewInfo(request,idPartida,idJogo):
-    objJogo = Jogo.objects.get(pk=idJogo)
-    ObjPartida = Partida.objects.get(pk=idPartida)
+    objJogo = Jogo.objects.select_related('Vencedora','Perdedora').get(pk=idJogo)
+    ObjPartida = Partida.objects.select_related('Vencedora','Perdedora','Jogo').get(pk=idPartida)
     try:
-        ListRodada = Rodada.objects.filter(Partida=ObjPartida)
+        ListRodada = Rodada.objects.select_related('Equipe','Partida').filter(Partida=ObjPartida)
     except:
         ListRodada = []
     context = {
@@ -183,5 +199,3 @@ def ViewInfo(request,idPartida,idJogo):
     }
 
     return render(request,"mais_informacoes.html",context)
-
-

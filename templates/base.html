@@ -5,43 +5,86 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css"/>
         <!-- importando CSS e JV  -->
         <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
-        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
         <link type="text/css" rel="stylesheet" href="{% static 'css/select2-materialize.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
         <link href="{% static 'css/HoldOn.min.css'%}" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
-        <script type="text/javascript" src="{% static 'js/HoldOn.min.js'%}"></script>
         <!-- Importando icones -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
-        <title>Tranca</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">    
+        <title>{{Nome_pagina}}</title>
     </head>
 
     <body>
         <header>
-            <nav>
-                <div class="nav-wrapper blue-grey darken-1">
-                    <a href="#" class="brand-logo">Tranca</a>
-                    <ul id="nav-mobile" class=" right hide-on-med-and-down">
-                        <li><a href="{% url 'Inicio' %}">Início</a></li>
-                        <li><a href="{% url 'cadastro' %}">Novo Jogo</a></li>
-                        {% block nav %}
-                            <li><a href="{% url 'InicioJogo' objJogo.id %}">Nova Rodada</a></li>
-                            <li><a href="{% url 'Resultado' objJogo.id %}">Ver Resultado</a></li>
-                            <div class="fixed-action-btn direction-left" style="bottom: 45px; right: 24px;">
-                                <a class="btn-floating btn tooltipped btn-large blue-grey darken-1 pulse" data-position="left" data-tooltip="Adicionar nova rodada" href="{% url 'InicioJogo' objJogo.id %}">
-                                    <i class="material-icons">library_add</i>
-                                </a>
-                            </div>
-                        {% endblock nav %}   
-                    </ul>
-                </div>
-            </nav>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper green darken-3 z-depth-1">
+                        <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+                        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        <ul id="nav-mobile" class=" right hide-on-med-and-down">
+                            <li>
+                                <li>
+                                    <a class="waves-effect topo" href="{% url 'Inicio' %}"><i class="material-icons left">house</i>Início</a>
+                                </li>
+                            </li>
+                            <li>
+                                <a class="waves-effect topo" href="{% url 'cadastro' %}"><i class="material-icons left">games</i>Novo Jogo</a>
+                            </li>
+                            {% block nav %}
+                                <li>
+                                    <a class="waves-effect topo" href="{% url 'InicioJogo' objJogo.id %}"><i class="material-icons left">loop</i>Nova Rodada</a>
+                                </li>
+                                <li>
+                                    <a  class="waves-effect " href="{% url 'Resultado' objJogo.id %}"><i class="material-icons left">star_rate</i>Ver Resultado</a>
+                                </li>
+                                <div class="fixed-action-btn direction-left" >
+                                    <a class="btn-floating btn tooltipped btn-large green darken-3 navbar-fixed pulse" data-position="left" data-tooltip="Adicionar nova rodada" href="{% url 'InicioJogo' objJogo.id %}">
+                                        <i class="material-icons">loop</i>
+                                    </a>
+                                </div>
+                            {% endblock nav %}   
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- Nav para mobile -->
+            <ul id="mobile-demo" class="sidenav">
+                <li>
+                    <div class="user-view">
+                        <div class="background">
+                            <img src="{% static 'img/capabonita.jpg' %}">
+                        </div>
+                        <a href="#user"><img class="circle" src="{% static 'img/Use.png' %}"></a>
+                        <a href="#name"><span class="white-text name">Michel Fernandes</span></a>
+                        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                    </div>
+                </li>
+                <li>
+                    <a class="subheader center">Funcionalidades</a>
+                </li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li>
+                    <a class="waves-effect" href="{% url 'Inicio' %}"><i class="material-icons">house</i>Início</a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="{% url 'cadastro' %}"><i class="material-icons">games</i>Novo Jogo</a>
+                </li>
+                {% block nave %}
+                    <li>
+                        <a href="{% url 'InicioJogo' objJogo.id %}"><i class="material-icons">loop</i>Nova Rodada</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Resultado' objJogo.id %}"><i class="material-icons">star_rate</i>Ver Resultado</a>
+                    </li>
+                {% endblock nave %}   
+            </ul>       
         </header>
         
         <main>
@@ -79,15 +122,19 @@
                 {% endblock conteudo %}                
         </main>
 
-        <footer class=" margin-top page-footer blue-grey darken-1">
+        <footer class=" margin-top page-footer green darken-3">
             <div class="footer-copyright">
                 <div class="container center">
                     Copyright © Tranca - Michel Fernandes Lemes
                 </div>
             </div>
         </footer>
-
-        <script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/HoldOn.min.js'%}"></script>
+        
+        <script>            
             $(document).ready(function() {
                 $(".dropdown-trigger").dropdown();
                 $('.tabs').tabs();
@@ -112,7 +159,6 @@
                 $(window).load(function() {
                     HoldOn.close();
             });
-            
         </script>
         {% block scripts %} 
         {% endblock %}

@@ -1,19 +1,28 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-color: #fafafa;
-
+    font-family: 'Bebas Neue', cursive;
+    background-color: #dcf1db;
 }
-
 main {
     flex: 1 0 auto;
 }
-
+.cardee{
+    background-color: #f1f1f1;
+}
+.topo{
+    margin-top: 1%;
+}
 #id-aguardo {
     margin-top: auto;
 }
-
+.bot{
+    margin-bottom: 50%;
+}
 .tabs .tab a {
     color: #00838f;
 }
@@ -112,36 +121,8 @@ card .card-content .card-title {
 :-ms-input-placeholder {  
     color:rgba(0, 0, 0, 0.692);
 }
-.datepicker-date-display {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 auto;
-    -ms-flex: 1 auto;
-    flex: 1 auto;
-    background-color: #006064;
-    color: #fff;
-    padding: 20px 22px;
-    font-weight: 500;
-}
-.datepicker-date-display .year-text {
-    display: block;
-    font-size: 1.5rem;
-    line-height: 25px;
-    color: #fff;
-}
-.timepicker-digital-display {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 auto;
-    -ms-flex: 1 auto;
-    flex: 1 auto;
-    background-color: #006064;
-    padding: 10px;
-    font-weight: 300;
-}
-.timepicker-close {
-    color: #006064;
-}
 .margin-top{
-    margin-top: 15px;
+    margin-top: 4%;
 }
 input:-webkit-autofill + label {
     font-size: 1.2px;
@@ -159,4 +140,23 @@ input:-webkit-autofill + label {
 .justify{
     text-align: justify;
     text-justify: inter-word;
+}
+.titulo{
+    font-size: 35px;
+    font-family: 'Staatliches', cursive;
+    color: black
+}
+.altura{
+    margin-top: 2%;
+}
+
+.padding{
+    padding: 4%;
+}
+
+.cardInterno{
+    margin-top: 25%;
+}
+.borda{
+    border-radius: solid red 20px 4px 2px;
 }
